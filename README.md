@@ -23,7 +23,7 @@ $ source .venv/bin/activate
 *********
 
 ## 3. 서버 실행
-### 3.1 crayon 서버에 crayon 계정으로 접속했을 경우
+### 3.1 서버에 root 계정으로 접속했을 경우
 ```sh
 $ start_production
 ```
@@ -31,8 +31,8 @@ $ start_production
 
 ### 3.2 새 환경에서 실행하는 경우
 ```sh
-$ source ~/crayon-server-v2/.venv/bin/activate
-$ cd ~/crayon-server-v2
+$ source ~/{dir_name}/.venv/bin/activate
+$ cd ~/{dir_name}
 $ tmux new -s session_name -n window_name
 $ tmux ls
 $ tmux attach-session -t {SESSION_NAME}
@@ -52,9 +52,8 @@ $ uvicorn app.main.app --reload --host={HOST} --port {PORT}
 ## 5. 기타
 
 ### 5.1 Google Cloud Storage (agora recording 저장소)
-* 버킷 이름: crayon-cloud-recording
 * recording/{date}/ 에 저장됨
-* e.g. crayon-cloud-recording/recording/20220604/
+* e.g. {bucket_name}/recording/20220604/
 
 
 ### 5.2 MongoDB
@@ -79,7 +78,7 @@ MongoDB DB 열람, 조작 예시
 ```sh
 $ mongo
 $ show dbs
-$ use crayon
+$ use {name}
 $ db
 $ show collections
 $ db.users.find()
@@ -98,16 +97,16 @@ $ sudo apt-get install nginx
 
 - NGINX reverse proxy config file
 ```sh
-/etc/nginx/sites-available/crayon-server.conf
+/etc/nginx/sites-available/{name}.conf
 ```
 
 - log, error 파일 디렉토리 생성 (.conf 에서 변경가능)
 ```bash
-$ mkdir /var/log/nginx/crayon-server/
+$ mkdir /var/log/nginx/{name}/
 ```
 - sites-enabled 에 심볼릭링크 만들어줘야 프록시 설정 적용됨
 ```sh
-ln -s /etc/nginx/sites-available/crayon-server.conf /etc/nginx/sites-enabled/crayon-server.conf 
+ln -s /etc/nginx/sites-available/{name}.conf /etc/nginx/sites-enabled/{name}.conf 
 ```
 
 nginx + gunicorn 서버 실행
